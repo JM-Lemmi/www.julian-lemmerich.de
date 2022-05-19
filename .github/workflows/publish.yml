@@ -1,0 +1,23 @@
+name: Website Publish
+
+on:
+  push:
+    branches:
+      - main
+      - stage-*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload to J-CX11
+        uses: appleboy/scp-action@master
+        with:
+          host: j-cx11-web.cloud.julian-lemmerich.de
+          username: ghactions
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "*"
+          target: "~/main-website"
+          overwrite: true
