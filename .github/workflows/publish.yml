@@ -16,13 +16,13 @@ jobs:
         with:
           base-url-path: "https://www.julian-lemmerich.de/"
           include-pdfs: true
-      - name: Upload to J-CX11
-        uses: appleboy/scp-action@master
+      - name: Upload to Webhost
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          host: j-cx11-web.cloud.julian-lemmerich.de
-          username: ghactions
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          source: "*.html,*.css,*.ico"
-          target: "~/main-website"
+          server: www184.your-server.de
+          username: ${{ secrets.HETZNER_FTP_USR }}
+          password: ${{ secrets.HETZNER_FTP_PWD }}
+          protocol: "ftps"
+          local-dir: "./"
+          server-dir: "./www/"
           overwrite: true
